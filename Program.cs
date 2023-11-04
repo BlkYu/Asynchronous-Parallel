@@ -6,17 +6,22 @@
         static void Main(string[] args)
         {
             //別スレッド
-            Task.Run(() => WriteOne("1"));
+            //var task = new Task(new Action(WriteOne));
+            var task = new Task(WriteOne);
+            task.Start();
 
             //メインスレッド
-            WriteOne("2");
+            for (int i = 0; i < 1024; i++)
+            {
+                Console.Write("2");
+            }
         }
 
-        private static void WriteOne(string target)
+        private static void WriteOne()
         {
             for (int i = 0; i < 1024; i++)
             {
-                Console.Write(target);
+                Console.Write("1");
             }
         }
     }
