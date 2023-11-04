@@ -7,13 +7,15 @@
         {
             //別スレッド
             var msg = "1";
-            Task.Run(() =>
+            var task = new Task(() =>
             {
                 for (int i = 0; i < 1024; i++)
                 {
                     Console.Write(msg);
                 }
             });
+            task.Start();
+
             Thread.Sleep(10);
             msg = "0";
 
