@@ -7,29 +7,20 @@
         {
             //別スレッド
             var msg = "1";
-            new Task((word) =>
-            {
-                for (int i = 0; i < 1024; i++)
-                {
-                    Console.Write(msg);
-                }
-            }, msg).Start();
+            Task.Run(() => proc(msg));
 
             Thread.Sleep(10);
             msg = "0";
 
             //メインスレッド
-            for (int i = 0; i < 1024; i++)
-            {
-                Console.Write("2");
-            }
+            proc("2");
         }
 
-        private static void WriteOne()
+        private static void proc(object param)
         {
             for (int i = 0; i < 1024; i++)
             {
-                Console.Write("1");
+                Console.Write(param);
             }
         }
     }
