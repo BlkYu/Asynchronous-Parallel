@@ -6,9 +6,16 @@
         static void Main(string[] args)
         {
             //別スレッド
-            //var task = new Task(new Action(WriteOne));
-            var task = new Task(WriteOne);
-            task.Start();
+            var msg = "1";
+            Task.Run(() =>
+            {
+                for (int i = 0; i < 1024; i++)
+                {
+                    Console.Write(msg);
+                }
+            });
+            Thread.Sleep(10);
+            msg = "0";
 
             //メインスレッド
             for (int i = 0; i < 1024; i++)
