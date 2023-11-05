@@ -4,17 +4,19 @@
     {
         static async Task Main(string[] _)
         {
-            Task<string>[] arrayTask = new[]
-            {
-                Task<string>.Run(()=>{return "A"; }),
-                Task<string>.Run(()=>{ return "B"; }),
-                Task<string>.Run(()=>{ return "C"; })
-            };
+            Task<Int32>[] Ats = new Task<Int32>[10];
 
-            for (int i = 0; i < arrayTask.Length; i++)
+            var total = 0;
+            for(int i = 0;i < Ats.Length; i++)
             {
-                Console.WriteLine("Result[{0}] = {1}.", i, arrayTask[i].Result);
+                Ats[i] = Task.Run(() => Interlocked.Increment(ref total));
             }
+
+            for (int i = 0; i < Ats.Length; i++)
+            {
+                Console.WriteLine($"Result[{i}] = {Ats[i].Result}");
+            }
+            Console.WriteLine($"total = {total}");
         }
     }
 }
