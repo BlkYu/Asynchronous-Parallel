@@ -4,13 +4,17 @@
     {
         static async Task Main(string[] _)
         {
-            Task[] arrayTask = new[]
+            Task<string>[] arrayTask = new[]
             {
-                Task.Run(()=>{Console.WriteLine("0"); }),
-                Task.Run(()=>{Console.WriteLine("1"); }),
-                Task.Run(()=>{Console.WriteLine("2"); }),
+                Task<string>.Run(()=>{return "A"; }),
+                Task<string>.Run(()=>{ return "B"; }),
+                Task<string>.Run(()=>{ return "C"; })
             };
-            Task.WaitAll(arrayTask);
+
+            for (int i = 0; i < arrayTask.Length; i++)
+            {
+                Console.WriteLine("Result[{0}] = {1}.", i, arrayTask[i].Result);
+            }
         }
     }
 }
