@@ -4,14 +4,13 @@
     {
         static async Task Main(string[] _)
         {
-            string str = await Method();
-            Console.WriteLine($"{str}");
-        }
-
-        private static Task<string> Method()
-        {
-            Thread.Sleep( 1000 );
-            return "messages";
+            Task[] arrayTask = new[]
+            {
+                Task.Run(()=>{Console.WriteLine("0"); }),
+                Task.Run(()=>{Console.WriteLine("1"); }),
+                Task.Run(()=>{Console.WriteLine("2"); }),
+            };
+            Task.WaitAll(arrayTask);
         }
     }
 }
